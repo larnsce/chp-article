@@ -1,6 +1,6 @@
 # README
 
-A repo for preparation of a journal article to be submitted to Gates Open Research Platform.
+A repo for preparation of a journal article to be submitted to [Gates Open Research Platform](https://gatesopenresearch.org/).
 
 ## Licenses
 
