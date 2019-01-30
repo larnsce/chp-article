@@ -1,0 +1,167 @@
+---
+title: 'Demonstrating Combined Heat and Power (CHP) Generation in a Community Scale Fecal Sludge Treatment Unit'
+date: "last update: `r Sys.Date()`"
+author: "Authors" 
+output:
+  bookdown::word_document2: default
+params:
+  gdrive_folder_url: "https://drive.google.com/drive/u/0/folders/1TuSGjkzFyZnrOdiTgCamJa1Aw71-rXfV"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+
+## set chunks output ------------------
+
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE, dev = c("png", "cairo_pdf"),
+  echo = FALSE,
+  fig.retina = 2,
+  fig.width = 10,
+  fig.height = 6,
+  fig.path = here::here("manuscript/charts/")
+)
+
+## setup google drive oauth
+
+googledrive::drive_auth(here::here("ttt.rds"))
+
+```
+
+```{r}
+library(tidyverse)
+library(scales)
+library(googledrive)
+```
+
+```{r}
+
+# Data from SQL query for GI7 and 2018-08-14. 
+data <- read_rds(here::here("data/raw/database_GI7_2018-08-14.rds"))
+
+# Fuel rate calibration data. ## Alternative: source(here::here("R/gather/gather_fuel_auger_calibration.R"))
+pellets_fuel_rate <- read_rds(here::here("data/raw/fuel_auger_calibration.rds"))
+
+# sensor data 
+source(file = here::here("R/gather/gather_sensor_data.R"))
+
+# fuel rate measurements on 2019-01-30
+
+fuel_rate_data <- tibble(
+  fuel_lb = c(54, 58, 48, 54),
+  time_min = c(48, 50, 40, 42),
+) %>% 
+  mutate(
+    mass_flow_lb_hr = fuel_lb/time_min * 60,
+    mass_flow_kg_hr = mass_flow_lb_hr * 0.45359237
+  )
+
+
+
+```
+
+
+```{r}
+
+## data manipulation
+
+data_tidy <- data %>% 
+  left_join(sensor_tidy) %>% 
+  filter(!is.na(component)) %>% 
+  filter(
+    component != "empty"
+  ) %>% 
+  
+  select(id_data_point, date_time, status, component, value, unit) 
+```
+
+# Results and Analysis
+
+## Thermal Power Balance
+
+A thermal power balance in the Biogenic Refinery was constructed using the aforementioned measured system temperatures and flow rates. This thermal power balance can be seen in Figure YY. Specific details on the thermal power calculations for each section follows.
+
+### Feedstock input
+
+```{r feedstock-input}
+
+# Calculation of energy balance for Section 1 (containing pyrolysis and combustion). 
+
+# heat input
+
+## Total fuel input
+
+m_fuel_kg_h <- fuel_rate_data %>% 
+  summarise(m_fuel_kg_h = mean(mass_flow_kg_hr)) %>% 
+  .$m_fuel_kg_h
+
+moisture_content <- 35 ## %
+
+## Dry fuel input
+m_fuel_kg_s <- m_fuel_kg_h / 3600 * (1 - moisture_content / 100)
+
+## energy density
+calorific_value_fuel <- 19.2 ## MJ/kg 
+
+## thermal power input of fuel
+q_fuel <- m_fuel_kg_s * calorific_value_fuel * 1000 # kW
+
+## evaporation
+q_evap <- m_fuel_kg_h / 3600 * moisture_content / 100 * (2257 + 4.187 * (100 - 30))
+
+## net thermal power input
+q_in <- q_fuel - q_evap
+
+# heat output
+
+
+
+```
+
+The surrogate feedstock described above were fed steadily into the BR. The fuel feed rate was measured to average 20.8 kg/hr on a dry basis, resulting in a total heat input of 101.2 kWth. Of this, 7.9 kWth was necessary to evaporate the water contained in the fuel prior to combustion. The remaining 93.2 kWth was released into the system.
+
+### Biochar output
+
+
+```{r heat-output}
+
+## char output
+
+m_char <- 0.00003 ## kg/s
+calorific_value_char <- 46.6 ## MJ/kg
+q_out <- m_char * calorific_value_char * 1000 ## kW
+
+## jacket loss
+
+##### CONTINUE HERE.
+
+
+```
+
+An average of 0.1 kg/hr of biochar was measured to have been produced by the BR during operation. The biochar has an estimated caloric value of 33.8 MJ/kg, meaning approximately 0.8 kWth of the original 93.2 kWth put into the system was not combusted and was instead removed as biochar. 
+
+### Oil working fluid heat exchanger 
+
+The oil working fluid heat exchanger circulated Duratherm FG oil through the BR with a measured flow rate of 12 LPM, as measured by an ultrasonic flow meter. The average measured temperature of oil coming into the system was 86℃ and the average measured temperature of oil entering the ORC was 151℃, both measured with thermistors connected to the BR controller. Using known thermal properties of the chosen Duratherm oil, it can be calculated that 23.5 kWth of power was delivered from the system. The thermal energy in the oil loop was continuously transferred to a heat exchanger as part of the ORC system, where a portion of this thermal energy was subsequently converted into electricity. An additional 4.3 kWth was extracted by the oil heat exchanger, but was dissipated as “loop losses”, or thermal energy losses through the oil pipe assembly into the ambient air.  
+
+### Hydronic heat exchanger output
+
+The hydronic heat exchanger circulated water through the BR with a measured flow rate of 10 LPM. The average measured temperature of water coming into the system was 37℃ and the average measured temperature of water exiting the system was 81℃. Both were measured with thermocouples connected to the BR controller. Using known thermal properties of water, it can be calculated that 27.3 kWth was delivered by the hydronic heat exchanger. This thermal energy was continuously dissipated through a radiator to simulate a connected, upstream fuel drying system. An additional 6.2 kWth was extracted by the hydronic heat exchanger, but was dissipated as “loop losses”, or thermal energy losses through the water pipe assembly into the ambient air. 
+
+### Jacket and stack losses
+
+Jacket and stack losses compose the remainder of the unaccounted for power leaving the system, 31.1kWth.  Jacket losses include heat lost through the surfaces of the three subcomponents of the biogenic refinery: i) losses from the bottom portion of the BR containing the pyrolysis pot; ii) losses from the middle portion of the BR containing the oil working fluid heat exchanger; and iii) losses from the top portion of the BR, containing the hydronic heat exchanger. Jacket temperatures were measured with an infrared thermometer at 12 points (4 on each section) every 30 minutes for the duration of steady state operation. The largest of these temperatures was used to calculate total radiative and convective heat transfer from each portion of the BR. Section 1, as shown in Figure 1, had an estimated surface temperature of 190℃ and an estimated loss of 5 kWth. Section 2 had an average surface temperature of 180℃ and an estimated loss of 4 kWth. Section 3 had an average surface temperature of 83℃ and an estimated loss of 2 kWth. 
+
+Air temperatures within the BR were measured with thermocouples connected to the BR controller. The ambient air temperature was 30℃. The average temperature leaving section 1, following the pyrolysis pot, was 835℃. This temperature exceeds the temperature necessary for pathogen free outputs, exceeding the IWA 28:2018 pathogen threshold requirements. The average temperature leaving section 2, following the oil heat exchanger, was 250℃. The average temperature leaving section 3, or the entire BR, was 113℃.
+
+## Electrical power balance
+
+During steady state operation of the Biogenic Refinery, the Organic Rankine Cycle generator was engaged and allowed to produce power. The ORC received approximately 23.5 kWth of power from the oil working fluid heat exchanger. This was converted into approximately 2.2 kWe of electrical power, an efficiency of 9%, slightly exceeding the nominal 8% efficiency of the ORC. For the purposes of this test, the electrical power was released through a heating element and not used to power the system or charge a battery.
+
+To measure parasitic load, the BR CHP system was connected to a WattNode Pulse energy and power meter. The meter measures energy using a current transformer clamped around the mains power cable for the BR CHP system connected to the wall-outlet. Although thermal energy is provided by the BR for drying incoming feedstock, the dryer itself is not considered a part of the BR CHP system. The average power draw from the BR CHP system, during steady state, was 1.0 kWe.
+
+Figure ZZ  shows the power consumed by the CHP system compared to the power generated by the ORC during steady-state operation. The BR CHP system thus produces 1.2 kWe net power as the calculated difference between these terms. 
+
+
