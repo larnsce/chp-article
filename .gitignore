@@ -23,6 +23,8 @@ vignettes/*.pdf
 
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
+.httr-oauth-SUSPENDED
+ttt.rds
 
 # knitr and R markdown default cache directories
 /*_cache/
@@ -33,5 +35,10 @@ vignettes/*.pdf
 *.knit.md
 
 # Other files
-
 .DS_Store
+
+# .Renviron file
+.Renviron
+
+# folders
+manuscript/charts/*
