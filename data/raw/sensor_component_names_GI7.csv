@@ -1,0 +1,29 @@
+id,sensor,unit,component,only_GI7
+1,AshRemovalAuger,%,Char Auger,no
+2,CatalystTemp,Temperature,Catalyst Temperature,no
+3,CN10Rpm,RPM,CN10 Inducer Fan,no
+4,CN9Rpm,RPM,Empty,no
+5,CombDamper,%,Secondary Air Damper,no
+6,CombFanCmd,%,Primary Blower,no
+7,FanCmd,%,?,?
+8,FireTemp,Temperature,Fire pot temperature,no
+9,Firmware2,,Firmware 2,Yes
+10,FirmwareVersion,,Firmware Version,no
+11,FlowRate,GPM,Water / Air Flow Rate,no
+12,FuelAugerCmd,%,Fuel Auger,no
+13,HEFanPower,%,Heat Exchanger Fan,no
+14,IdFanPower,%,Inducer Fan,no
+15,O2Level,A/D,O2 Level,no
+16,OilPump,%,Oil Pump,Yes
+17,OilFlwRate,L/min,Oil Flow Rate,Yes
+18,RunTime2,?,?,?
+19,StackTemp,Temperature,Stack Temperature,no
+20,Thermistor3,Temperature,Oil In,Yes
+21,Thermistor4,Temperature,Oil Out,Yes
+22,Thermocouple4,Temperature,Pre HHX,Yes
+23,Thermocouple5,Temperature,Water in Evaporator,Yes
+24,Thermocouple6,Temperature,Ambient Temperature,Yes
+25,WaterInTemp,Temperature,Heat Exchanger Water In Temprature,no
+26,WaterOutTemp,Temperature,Heat Exchanger Water Out Temprature,no
+27,Watt-hours,Watts,Watt node,no
+,,,,
