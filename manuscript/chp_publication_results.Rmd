@@ -120,7 +120,7 @@ q_in <- q_fuel - q_evap
 
 ```
 
-The surrogate feedstock described above were fed steadily into the BR. The fuel feed rate was measured to average 20.8 kg/hr on a dry basis, resulting in a total heat input of 101.2 kWth. Of this, 7.9 kWth was necessary to evaporate the water contained in the fuel prior to combustion. The remaining 93.2 kWth was released into the system.
+The surrogate feedstock described above were fed steadily into the BR. The fuel feed rate was measured to average `r round(m_fuel_kg_h * 0.65, round = 1)` kg/hr on a dry basis. The calorific value was `r calorific_value_fuel` resulting in a total heat input of `r round(q_fuel, digit = 1)` kWth. Of this, `r round(q_evap, digits = 1)` kWth was necessary to evaporate the water contained in the fuel prior to combustion. The remaining `r round(q_in, digits = 1)` kWth was released into the system.
 
 ### Biochar output
 
