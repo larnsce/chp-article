@@ -1,0 +1,9 @@
+parameter,value
+Fuel Input,104.4783903912479
+Biochar Output,1.014
+Oil Heat Exchanger,24.978619104558994
+Oil Loop Loss,2.2282314885555867
+Hydronic Heat Exchanger,38.94837495395394
+Water Loop Loss,2.323784334969091
+Jacket Heat Loss,14.845661793774386
+Stack Heat Loss,20.139718715435894

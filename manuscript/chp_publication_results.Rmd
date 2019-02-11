@@ -57,7 +57,7 @@ library(scales)
 data <- read_csv(here::here("data/raw/database_GI7_2018-08-14.csv"))
 
 # sensor component names data 
-sensor_tidy <- read_csv(here::here("data/final/sensor_component_names_GI7_tidy.csv"))
+sensor_tidy <- read_csv(here::here("data/intermediate/sensor_component_names_GI7_tidy.csv"))
 
 # fuel rate measurements on 2018-08-14
 # measurements were taken manually. fuel was weighed at specific time intervals
