@@ -1,0 +1,14 @@
+section,component,surface,temperature_c,width,length
+1,pyrolysis_combustion,1,143.6,0.664,0.987
+1,pyrolysis_combustion,2,189.6,0.664,1.47
+1,pyrolysis_combustion,3,90.2,0.664,0.987
+1,pyrolysis_combustion,4,142.6,0.664,1.47
+2,catalytic_coverter_oil_hx,5,122.2,0.492,0.987
+2,catalytic_coverter_oil_hx,6,179.6,0.492,1.47
+2,catalytic_coverter_oil_hx,7,137,0.492,0.987
+2,catalytic_coverter_oil_hx,8,81.8,0.492,1.47
+3,water_air_hx,9,83.4,0.664,0.987
+3,water_air_hx,10,77.8,0.664,1.47
+3,water_air_hx,11,54,0.664,0.987
+3,water_air_hx,12,56.6,0.664,1.47
+3,top_of_refinery,13,NA,0.987,1.47
