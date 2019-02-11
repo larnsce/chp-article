@@ -1,0 +1,3 @@
+component,Pipe Length m,Pipe OD mm,Pipe ID mm,Thermal Conductivity of Pipe W/mK,R Pipe K/kW,Insulation OD mm,Insulation ID mm,K insulation W/mK,R Insulation K/kW
+water_pipe,5.7,48,45,54,0.04,50,48,0.04,24.1
+oil_pipe,2.4,48,45,54,0.09,50,48,0.04,57.3
