@@ -10,7 +10,6 @@
 # load libraries -----------
 
 library(tidyverse)
-library(googledrive)
 
 # read data ------
 
