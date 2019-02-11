@@ -1,0 +1,6 @@
+Water fluid properties,,
+Temperature (C) ,Density (kg/m3),Heat Capacity (kJ/kg-K)
+25,997.05,4.14
+45,990.21,4.05
+65,980.55,3.95
+85,968.61,3.85
