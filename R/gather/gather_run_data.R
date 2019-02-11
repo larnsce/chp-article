@@ -7,7 +7,6 @@
 
 # Comments -------------------
 
-
 # Load packages --------------
 
 library(tidyverse)
@@ -100,11 +99,12 @@ data <- dat_reading %>%
     value = Value,
     unit = Unit
   ) %>% 
-  filter(!is.na(value))
+  filter(!is.na(value)) %>% 
+  select(-id_data_reading, -idIBC, -id_data_point, -date)
 
 # write data to RDS file -------------
 
-write_rds(x = data, path = here::here("data/raw/database_GI7_2018-08-14.rds"))
+write_csv(x = data, path = here::here("data/raw/database_GI7_2018-08-14.csv"))
 
 # Disconnect from DB -----------------------
 
