@@ -14,11 +14,6 @@ library(googledrive)
 
 # read data ------
 
-# id <- drive_get(id = "1P6d0iiKhl3uE3x7xG3Ek8THPH6VONuW549FRJ0eq0Ks")
-# drive_get(id = "1P6d0iiKhl3uE3x7xG3Ek8THPH6VONuW549FRJ0eq0Ks")
-
-# drive_download(file = id, path = here::here("data/raw/GI7_sensor_components.xlsx"), overwrite = TRUE)
-
 sensor <- read_csv(here::here("data/raw/sensor_component_names_GI7.csv"))
 
 sensor_tidy <- sensor %>% 
@@ -26,5 +21,6 @@ sensor_tidy <- sensor %>%
   rename(name = component) %>% 
   mutate(component = snakecase::to_snake_case(name))
   
+# write data ------
 
-
+write_csv(sensor_tidy, here::here("data/intermediate/sensor_component_names_GI7_tidy.csv"))

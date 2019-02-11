@@ -1,0 +1,29 @@
+sensor,name,unit,component
+AshRemovalAuger,Char Auger,%,char_auger
+CatalystTemp,Catalyst Temperature,Temperature,catalyst_temperature
+CN10Rpm,CN10 Inducer Fan,RPM,cn_10_inducer_fan
+CN9Rpm,Empty,RPM,empty
+CombDamper,Secondary Air Damper,%,secondary_air_damper
+CombFanCmd,Primary Blower,%,primary_blower
+FanCmd,?,%,
+FireTemp,Fire pot temperature,Temperature,fire_pot_temperature
+Firmware2,Firmware 2,NA,firmware_2
+FirmwareVersion,Firmware Version,NA,firmware_version
+FlowRate,Water / Air Flow Rate,GPM,water_air_flow_rate
+FuelAugerCmd,Fuel Auger,%,fuel_auger
+HEFanPower,Heat Exchanger Fan,%,heat_exchanger_fan
+IdFanPower,Inducer Fan,%,inducer_fan
+O2Level,O2 Level,A/D,o_2_level
+OilPump,Oil Pump,%,oil_pump
+OilFlwRate,Oil Flow Rate,L/min,oil_flow_rate
+RunTime2,?,?,
+StackTemp,Stack Temperature,Temperature,stack_temperature
+Thermistor3,Oil In,Temperature,oil_in
+Thermistor4,Oil Out,Temperature,oil_out
+Thermocouple4,Pre HHX,Temperature,pre_hhx
+Thermocouple5,Water in Evaporator,Temperature,water_in_evaporator
+Thermocouple6,Ambient Temperature,Temperature,ambient_temperature
+WaterInTemp,Heat Exchanger Water In Temprature,Temperature,heat_exchanger_water_in_temprature
+WaterOutTemp,Heat Exchanger Water Out Temprature,Temperature,heat_exchanger_water_out_temprature
+Watt-hours,Watt node,Watts,watt_node
+NA,NA,NA,NA
