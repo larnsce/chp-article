@@ -1,14 +1,14 @@
 ---
 title: 'Towards an Off-Grid Fecal Sludge Treatment Unit: Demonstrating Energy Positive
   Thermal Treatment'
-author: "Authors"
+author: "T. Myers, L. Schoebitz, S. Woolley, J. Sanchez Ferragut, J. Thostenson, K. Jooss, J.Piascik,  B. Stoner, J. Hallowell"
 date: 'last update: `r Sys.Date()`'
 output:
+  bookdown::word_document2: default
   bookdown::pdf_document2:
     fig_caption: yes
     includes:
       in_header: preamble-latex.tex
-  bookdown::word_document2: default
   bookdown::html_document2:
     fig_caption: yes
     toc: true
@@ -22,10 +22,10 @@ editor_options:
 
 #### IMPORTANT: Exclude this chunk if output is not pdf_document2
 
-knitr::knit_hooks$set(plot = function(x, options)  {
-  knitr::hook_plot_tex(x, options)
-})
-
+# knitr::knit_hooks$set(plot = function(x, options)  {
+#   knitr::hook_plot_tex(x, options)
+# })
+# 
 ```
 
 ```{r setup, include=FALSE}
@@ -46,6 +46,7 @@ knitr::opts_chunk$set(
 ## load required libraries 
 
 library(tidyverse)
+library(networkD3)
 library(scales)
 
 ```
@@ -69,25 +70,29 @@ fuel_rate_data <- tibble(
     mass_flow_lb_hr = fuel_lb/time_min * 60,
     mass_flow_kg_hr = mass_flow_lb_hr * 0.45359237  ## conversion to kg
   ) %>% 
-  write_csv(here::here("data/final/fuel_rate_data.csv"))
+  write_csv(here::here("data/raw/fuel_rate_data.csv"))
 
 # duratherm oil thermal properties
 
 duratherm_oil <- read_csv(
-  file = here::here("data/final/duratherm_oil_properties_tidy.csv")
+  file = here::here("data/intermediate/duratherm_oil_properties_tidy.csv")
   )
 
 # water properties
 
 water_properties <- read_csv(
-  file = here::here("data/final/water_properties_tidy.csv")
+  file = here::here("data/intermediate/water_properties_tidy.csv")
   )
 
 # water pipe data
 
-pipe_assembly_data <- read_csv(
-  file = here::here("data/raw/pipe_assembly_data.csv")) %>% 
-  rename_all(.funs = snakecase::to_snake_case)
+pipe_assembly <- read_csv(
+  file = here::here("data/raw/pipe_assembly_data.csv")) 
+
+pipe_assembly_data <- pipe_assembly %>% 
+  rename_all(.funs = snakecase::to_snake_case) %>% 
+  select(component, r_pipe_k_k_w, r_insulation_k_k_w) %>% 
+  write_csv(path = here::here("data/intermediate/pipe_assembly_data_small.csv"))
 
 # jacket heat loss temperature measurements
 
@@ -108,7 +113,7 @@ data_tidy <- data %>%
   filter(
     component != "empty" # sensor CN9Rpm not used in setup
   ) %>% 
-  select(id_data_point, date_time, status, component, value, unit) 
+  select(date_time, status, component, value, unit) 
 
 
 ```
@@ -219,7 +224,6 @@ where $\dot{V}_{oil}$ is the volumetric flow rate of oil, $\rho_{oil}$ is the de
 ```{r tab-duratherm}
 
 duratherm_oil %>% 
-  select(temperature_c, density_kg_m_3_1, heat_capacity_k_j_kg_k_1) %>% 
   knitr::kable(caption = "Thermal properties of Duratherm FG oil working fluid")
 
 
@@ -265,6 +269,101 @@ knitr::include_graphics(here::here("manuscript/images/refinery_energy_balance.pn
 
 
 ```
+
+```{r}
+
+## Sankey Diagram that can be run as an individual chunk without dependency on other objects in this document.
+
+power <- read_csv(file = here::here("data/final/chp_power_balance_final.csv"))
+
+nodes_combined2 <- tibble(
+    name = c(
+    "Fuel Input", # 0
+    "Biochar Output", # 1
+    "Oil Heat Exchanger", # 2
+    "Oil Loop Loss",  # 3
+    "Hydronic Heat Exchanger", # 4
+    "Water Loop Loss", # 5
+    "Jacket Heat Loss", # 6
+    "Stack Heat Loss", # 7
+    "Organic Rankine Cycle", # 8
+    "Drying Unit", # 9
+    "Electrical Energy Generated", # 10
+    "Electrical Energy Consumed", # 11
+    "Net Power Produced" # 12
+    ),
+)
+
+
+links_combined2 <- tibble(
+  source = c(0, 0, 0, 0, 0, 2, 2, 4, 4, 8, 8, 10, 10),
+  target = c(2, 4, 6, 7, 1, 8, 3, 9, 5, 9, 10, 11, 12),
+  value = c(
+      (filter(power, parameter == "Oil Heat Exchanger")$value + filter(power, parameter == "Oil Loop Loss")$value),
+      (filter(power, parameter == "Hydronic Heat Exchanger")$value + filter(power, parameter == "Water Loop Loss")$value),
+      filter(power, parameter == "Jacket Heat Loss")$value,
+      filter(power, parameter == "Stack Heat Loss")$value,
+      filter(power, parameter == "Biochar Output")$value,
+      filter(power, parameter == "Oil Heat Exchanger")$value,
+      filter(power, parameter == "Oil Loop Loss")$value,
+      filter(power, parameter == "Hydronic Heat Exchanger")$value,
+      filter(power, parameter == "Water Loop Loss")$value,
+      filter(power, parameter == "Oil Heat Exchanger")$value - 2.2,
+      2.2,
+      1.1,
+      2.2 - 1.1
+      )
+  )
+
+## Add text to label
+
+txt_combined <- links_combined2 %>% 
+  group_by(target) %>% 
+  summarise(
+    total = sum(value)
+  ) %>% 
+  ungroup()
+
+fuel_input2 <- tibble(
+  target = 0,
+  total = 104
+)
+
+
+txt_combined2 <- txt_combined %>% 
+  bind_rows(fuel_input2) %>% 
+  arrange(target)
+
+
+nodes_combined3 <- nodes_combined2 %>% 
+  #slice(-1) %>% 
+  mutate(
+    target = c(txt_combined2$target),
+    name = c(paste0(name,' (', round(txt_combined2$total, 1), ' kW' ,')'))
+    )
+  
+power_combined3 <- list(nodes = nodes_combined3, links = links_combined2)
+
+sankey_combined3 <- sankeyNetwork(
+  Links = power_combined3$links, 
+  Nodes = power_combined3$nodes, 
+  Source = "source",
+  Target = "target",
+  Value = "value", 
+  NodeID = "name",
+  units = "kWth", 
+  fontSize = 18, 
+  nodeWidth = 20, 
+  fontFamily = "Arial",
+  height = 900,
+  width = 1500,
+  sinksRight = FALSE)
+
+
+sankey_combined3
+
+```
+
 
 ### Feedstock input
 
@@ -583,9 +682,7 @@ power_balance_final <- tibble(
     heat_loss_water_pipe, ## losses through water pipe
     jacket_heat_loss_total, ## losses through jacket
     stack_heat_loss ## losses through stack
-  ),
-  unit = "kWth",
-  type = c("Input", "Output", "Output", "Loss", "Output", "Loss", "Loss", "Loss")
+  ) 
 )
 
 ## save output
@@ -603,67 +700,88 @@ power_balance_final %>%
 
 ```
 
-The power balance is visualized in Figure \@ref(fig:f-power-balance).
+The thermal power balance is visualized as a Sankey Diagram in Figure \@ref(fig:sankey-power-balance).
 
-```{r f-power-balance, fig.cap="Final thermal power balance."}
-
-## plot data
-
-power_balance_final %>% 
-  mutate(type = factor(type)) %>% 
-  
-  ggplot(aes(x = type, y = value, fill = parameter)) +
-  geom_col() +
-  scale_fill_brewer(palette = "Set2") +
-  labs(title = "NOTE: This is just an exmaple, which we could develop further.", x = NULL, y = "thermal power [kW]") +
-  theme_minimal(base_size = 12)
-
-
-```
-
-The power balance is visualized as a Sankey Diagram in Figure \@ref(fig:sankey-power-balance).
 
 ```{r sankey-power-balance, include=TRUE, fig.cap="Final thermal power balance."}
 
-library(networkD3)
-
-nodes_chp <- tibble(
+nodes_chp2 <- tibble(
     name = c(
     "Fuel Input", # 0
-    "Output", # 1
-    "Loss", # 2
-    "Biochar Output", # 3
-    "Oil Heat Exchanger", # 4
-    "Oil Loop Loss",  # 5
-    "Hydronic Heat Exchanger", # 6
-    "Water Loop Loss", # 7
-    "Jacket Heat Loss", # 8
-    "Stack Heat Loss" # 9
+    "Biochar Output", # 1
+    "Oil Heat Exchanger", # 2
+    "Oil Loop Loss",  # 3
+    "Hydronic Heat Exchanger", # 4
+    "Water Loop Loss", # 5
+    "Jacket Heat Loss", # 6
+    "Stack Heat Loss", # 7
+    "Organic Rankine Cycle", # 8
+    "Drying Unit" # 9
     ),
 )
 
-links_chp <- tibble(
-  source = c(0, 0, 1, 1, 1, 2, 2, 2, 2),
-  target = c(1, 2, 3, 4, 6, 5, 7, 8, 9),
+
+links_chp2 <- tibble(
+  source = c(0, 0, 0, 0, 0, 2, 2, 4, 4),
+  target = c(2, 4, 6, 7, 1, 8, 3, 9, 5),
   value = c(
-    (q_out + power_delivery_orc + heat_output_water), 
-    (heat_loss_oil_pipe + heat_loss_water_pipe + jacket_heat_loss_total + stack_heat_loss), 
-    q_out,
-    power_delivery_orc,
-    heat_output_water,
-    heat_loss_oil_pipe,
-    heat_loss_water_pipe,
-    jacket_heat_loss_total,
-    stack_heat_loss)
+      (filter(power, parameter == "Oil Heat Exchanger")$value + filter(power, parameter == "Oil Loop Loss")$value),
+      (filter(power, parameter == "Hydronic Heat Exchanger")$value + filter(power, parameter == "Water Loop Loss")$value),
+      filter(power, parameter == "Jacket Heat Loss")$value,
+      filter(power, parameter == "Stack Heat Loss")$value,
+      filter(power, parameter == "Biochar Output")$value,
+      filter(power, parameter == "Oil Heat Exchanger")$value,
+      filter(power, parameter == "Oil Loop Loss")$value,
+      filter(power, parameter == "Hydronic Heat Exchanger")$value,
+      filter(power, parameter == "Water Loop Loss")$value
+      )
   )
 
+## Add text to label
 
-power_chp <- list(nodes = nodes_chp, links = links_chp)
+txt <- links_chp2 %>% 
+  group_by(target) %>% 
+  summarise(
+    total = sum(value)
+  ) %>% 
+  ungroup() 
 
-sankeyNetwork(Links = power_chp$links, Nodes = power_chp$nodes, Source = "source",
-              Target = "target", Value = "value", NodeID = "name",
-              units = "kWth", fontSize = 16, nodeWidth = 20, fontFamily = "Arial")
+fuel_input <- tibble(
+  target = 0,
+  total = 104
+)
 
+
+txt2 <- txt %>% 
+  bind_rows(fuel_input) %>% 
+  arrange(target)
+
+
+nodes_chp3 <- nodes_chp2 %>% 
+  #slice(-1) %>% 
+  mutate(
+    target = c(txt2$target),
+    name = c(paste0(name,' (', round(txt2$total, 1), ' kW' ,')'))
+    )
+  
+power_chp3 <- list(nodes = nodes_chp3, links = links_chp2)
+
+sankey3 <- sankeyNetwork(
+  Links = power_chp3$links, 
+  Nodes = power_chp3$nodes, 
+  Source = "source",
+  Target = "target",
+  Value = "value", 
+  NodeID = "name",
+  units = "kWth", 
+  fontSize = 19, 
+  nodeWidth = 20, 
+  fontFamily = "Arial",
+  height = 900,
+  width = 1200)
+
+
+sankey3
 
 
 ```
@@ -679,16 +797,64 @@ electrical_power_generated <- 2200
 
 # Total System power draw on 2018-08-22 at 2:25 PM
 
-power_draw <- 1121 
+power_draw <- 1000
 
 
 ```
 
 During steady state operation of the Biogenic Refinery, the Organic Rankine Cycle generator was engaged and allowed to produce power. The ORC received approximately `r round(power_delivery_orc, digits = 1)` kWth of power from the oil working fluid heat exchanger. This was converted into approximately `r round(electrical_power_generated / 1000, digits = 1)` kWe of electrical power, an efficiency of `r round(electrical_power_generated / 1000 / power_delivery_orc * 100, digits = 1)` %, slightly exceeding the nominal 8% efficiency of the ORC. For the purposes of this test, the electrical power was released through a heating element and not used to power the system or charge a battery.
 
-To measure parasitic load, the BR CHP system was connected to a WattNode Pulse energy and power meter. The meter measures energy using a current transformer clamped around the mains power cable for the BR CHP system connected to the wall-outlet. Although thermal energy is provided by the BR for drying incoming feedstock, the dryer itself is not considered a part of the BR CHP system. The average power draw from the BR CHP system, during steady state, was `r round(power_draw, digits = 1)` kWe. 
+To measure parasitic load, the BR CHP system was connected to a WattNode Pulse energy and power meter. The meter measures energy using a current transformer clamped around the mains power cable for the BR CHP system connected to the wall-outlet. Although thermal energy is provided by the BR for drying incoming feedstock, the dryer itself is not considered a part of the BR CHP system. The average power draw from the BR CHP system, during steady state, was `r round(power_draw / 1000, digits = 1)` kWe. 
 
 Figure **XYZ** shows the power consumed by the CHP system compared to the power generated by the ORC during steady-state operation. The BR CHP system thus produces `r round((electrical_power_generated - power_draw) / 1000, digits = 1)` kWe net power as the calculated difference between these terms. 
+
+```{r}
+
+nodes_orc <- tibble(
+    name = c(
+    "Organic Rankine Cycle (25.0 kW)", # 0
+    "Electrical Energy Generated (2.2 kW)", # 1
+    "Thermal Energy Lost (22.8 kW)", # 2
+    "Eletrical Energy Consumed (1.0 kW)", # 3
+    "Net Power Produced (1.2 kW)" # 4
+    #"Example Losses A (7.8 kW)", # 5
+    #"Example Losses B (15.0 kW)" # 6
+    ),
+)
+
+links_orc <- tibble(
+  source = c(0, 0, 1, 1), #, 2, 2),
+  target = c(2, 1, 3, 4),# , 5, 6),
+  value = 
+    c(filter(power, parameter == "Oil Heat Exchanger")$value - 2.2,
+      2.2,
+      1.0,
+      2.2 - 1.0
+      #7.8,
+      #15.0
+    )
+)
+
+power_orc <- list(nodes = nodes_orc, links = links_orc)
+
+sankey_orc <- sankeyNetwork(
+  Links = power_orc$links, 
+  Nodes = power_orc$nodes, 
+  Source = "source",
+  Target = "target",
+  Value = "value", 
+  NodeID = "name",
+  units = "kWth", 
+  fontSize = 18, 
+  nodeWidth = 20, 
+  fontFamily = "Arial",
+  height = 400,
+  width = 1100, sinksRight = FALSE)
+
+sankey_orc
+
+
+```
 
 
 
