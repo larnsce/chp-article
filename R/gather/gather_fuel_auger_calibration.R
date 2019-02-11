@@ -7,6 +7,8 @@
 
 # Comments -------------------
 
+## 2019-02-11: Data not used in final submission. Replaced by specific measurements on day of operation.
+
 # load libraries -----------
 
 library(tidyverse)
@@ -74,6 +76,6 @@ pellets_fuel_rate <- pellets_combined %>%
 
 # write data to RDS file -------------
 
-write_rds(x = pellets_fuel_rate, path = here::here("data/raw/fuel_auger_calibration.rds"))
+write_csv(x = pellets_fuel_rate, path = here::here("data/raw/fuel_auger_calibration.csv"))
 
 
