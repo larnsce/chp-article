@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/167369656.svg)](https://zenodo.org/badge/latestdoi/167369656)
 
-This repository stores all files required to reproduce a Research Article submitted to [Gates Open Research Platform](https://gatesopenresearch.org/). The article was written in RMarkdown and submitted as a DOCX file. 
+This repository stores all files required to reproduce a Research Article submitted to [Gates Open Research Platform](https://gatesopenresearch.org/). The article was written in [R Markdown](https://rmarkdown.rstudio.com/) and can be fully reproduced by cloning this repository and installing the required software listed under R Session info. The article was submitted as a DOCX file, as required be the research platform. The [final DOCX file]() underwent minor manual modifications, which are not reproducable. 
 
 ## Data
 
