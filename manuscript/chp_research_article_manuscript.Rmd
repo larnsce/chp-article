@@ -851,6 +851,7 @@ This manuscript was written in R Markdown and is fully reproducible. All underly
 
 Data and source code are stored on GitHub and archived on Zenodo [@lars_schoebitz_2019_2562683]. Metadata for all data tables required to reproduce this article are described in https://github.com/larnsce/chp-article/blob/master/data/chp_article_data_tables_metadata.md.
 
+
 # Grant information
 
 Taylor to add.
