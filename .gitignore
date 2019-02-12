@@ -42,3 +42,27 @@ ttt.rds
 
 # folders
 manuscript/charts/*
+
+# files
+manuscript/chp_power_balance_sankey.Rmd
+manuscript/chp_power_balance_sankey.html
+manuscript/chp_power_balance_sankey.pdf
+
+manuscript/chp_research_article_working_document.Rmd
+
+# manuscript/chp_publication_results.html
+# manuscript/chp_publication_results.pdf
+
+# ignore data files
+
+data/raw/database_GI7_2018-08-22.rds
+data/raw/fuel_auger_calibration.csv
+
+# files
+
+*.docx
+*.html
+
+# gather scripts that are not required for manuscript
+
+R/gather/gather_power_data.R
