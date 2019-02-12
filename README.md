@@ -6,7 +6,7 @@ This repository stores all files required to reproduce a Research Article submit
 
 ## Data
 
-A description of all data tables required to reproduce the article is storewd in `data/` directory and accessible from the [data tables metadata](chp_article_data_tables_metadata.md) file.
+A description of all data tables required to reproduce the article is storewd in `data/` directory and accessible from the [data tables metadata](data/chp_article_data_tables_metadata.md) file.
 
 ## R Session info
 
