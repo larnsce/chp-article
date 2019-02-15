@@ -60,8 +60,10 @@ data/raw/database_GI7_2018-08-22.rds
 data/raw/fuel_auger_calibration.csv
 
 # files
+manuscript/chp_power_balance_sankey.docx
+manuscript/chp_research_article_manuscript.docx
+manuscript/chp_research_article_working_document.docx
 
-*.docx
 *.html
 
 # gather scripts that are not required for manuscript
