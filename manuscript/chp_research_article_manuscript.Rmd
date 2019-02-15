@@ -1,7 +1,7 @@
 ---
 title: 'Towards an Off-Grid Fecal Sludge Treatment Unit: Demonstrating Energy Positive
   Thermal Treatment'
-author: "T. Myers, L. Schoebitz, S. Woolley, J. Sanchez Ferragut, J. Thostenson, K. Jooss, J.Piascik,  B. Stoner, J. Hallowell"
+author: "T. Myers, L. Schoebitz, S. Woolley, J. Sanchez Ferragut, J. Thostenson, K. Jooss, A. Frechette, N. Hotz, J.Piascik, B. Stoner, J. Hallowell"
 date: 'last update: `r Sys.Date()`'
 output:
   bookdown::word_document2: default
@@ -135,18 +135,19 @@ ambient_temp <- data_tidy %>%
 
 **Background:** There is an unmet demand for community-scale fecal sludge treatment units (FSTUs) that serve communities of between 1,000 and 50,000 people and are able to operate in non-sewered and off-grid environments. An emerging industry standard for FSTUs  includes as a key criteria energy independence in steady-state. Theoretically, there is sufficient thermal energy available in fecal sludge to provide the electrical power needed to run the FSTU. However, such a system had never been implemented.   
 **Methods:** Biomass Controls has previously demonstrated the thermal treatment of fecal sludge using the Biogenic Refinery, a thermal FSTU deployed in three sites in India. In this article we describe testing where a Biogenic Refinery was paired with a thermal fluid heat exchanger and organic Rankine cycle generator to generate electrical power.  
-**Results and Conclusions:** This Biogenic Refinery Combined Heat and Power system generated sufficient electrical power to offset electrical parasitic loads. Additional steps are necessary to transition to a true off-grid FSTU.
+**Results and Conclusions:** This Biogenic Refinery Combined Heat and Power system generated sufficient electrical power to offset electrical parasitic loads in steady state operation. Additional steps are necessary to transition to a true off-grid FSTU.
+
 
 
 # Introduction
 
-Community scale fecal sludge treatment units (FSTUs) are an important technology in meeting the needs of the 2.5 billion people without adequate sanitation [@world2017progress; @roseCharacterizationFecesUrine2015b]. Many of these communities also lack access to consistent electricity supply [@ieaWorldBankSustainable2019]. To encourage the development of FSTUs that meet these needs, the International Standards Organization (ISO) is developing the ISO/PC318 standard for community scale resource oriented sanitation treatment systems [@iso/pc318ISOPC3182019]. Key criteria for compliance with this emerging standard include: (1) the inactivation of pathogens present in fecal sludge and (2) energy independence or off-grid operation. EPA Rule, 40 CFR Part 503, Standards for the Use or Disposal of Sewage Sludge, is a widely adopted standard regulating the inactivation of pathogens in biosolids and provides guidance on how the first key criteria may be met across different treatment techniques including thermal treatment, high pH processes, composting, irradiation, and aerobic digestion [@usepaPlainEnglishGuide2018]. To meet the second key criteria, the treatment process must be energy neutral or energy positive and operate on faecal sludge only without supplemental energy from other sources. 
+Community scale fecal sludge treatment units (FSTUs) are an important technology in meeting the needs of the 2.5 billion people without adequate sanitation [@world2017progress; @roseCharacterizationFecesUrine2015b]. Many of these communities also lack access to consistent electricity supply [@ieaWorldBankSustainable2019]. To encourage the development of FSTUs that meet these needs, the International Standards Organization (ISO) is developing the ISO/PC318 standard for community scale resource oriented sanitation treatment systems [@iso/pc318ISOPC3182019].  Key criteria for compliance with this emerging standard include: (1) the inactivation of pathogens present in fecal sludge and (2) energy independence or off-grid operation. The first key criteria may be met  through a variety of different treatment techniques including thermal treatment, high pH processes, composting, irradiation, and aerobic digestion. To meet the second key criteria, the treatment process must be energy neutral or energy positive and operate on faecal sludge only without supplemental energy from other sources.
 
 Thermal treatment technologies are a promising approach that could meet both of these criteria [@yermanSmoulderingCombustionTreatment2015; @onabanjoEnergyRecoveryHuman2016b]. In contrast to other pathogen elimination strategies, high temperature thermal treatment offers rapid inactivation of pathogens in a small footprint, without requiring disinfecting chemicals. Further, thermal treatments including pyrolysis, gasification, and combustion can liberate stored energy present in the fecal sludge providing thermal energy useful for processing the fecal sludge and for conversion to electrical energy to run the process [@syed-hassanThermochemicalProcessingSewage2017].
 
-In the present work, the Biomass Controls Biogenic Refinery (BR), an existing thermal FSTU, was paired with a thermal fluid heat exchanger and organic Rankine cycle (ORC) generator to make a combined heat and power (CHP) unit. The BR is currently used as an FSTU in several communities in India fulfilling pathogen inactivation requirements given in 40 CFR Part 503. The objective of the present study is to demonstrate that there is sufficient electrical power produced by the BR CHP to offset the electrical power necessary to run the BR CHP.
+This paper focuses on the demonstration of energy positive operation in steady state, key criteria (2).  In the present work, the Biomass Controls Biogenic Refinery (BR), an existing thermal FSTU, was paired with a thermal fluid heat exchanger and organic Rankine cycle (ORC) generator to make a combined heat and power (CHP) unit. The BR is currently used as an FSTU in several communities in India fulfilling pathogen inactivation requirements given in Environmental Protection Agency (EPA) 40 CFR Part 503 [@usepaPlainEnglishGuide2018]. The objective of the present study is to demonstrate that there is sufficient electrical power produced by the BR CHP to offset the electrical power necessary to run the BR CHP.
 
-To provide this demonstration, first, we describe the BR CHP system and its modules as well as the test protocol followed. Next, we present a thermal power balance based on measurements of the system during steady-state operation to demonstrate energy available in the thermochemical process. Last, we present measurements of electrical power generated by the ORC as well as the electrical power consumed by the BR CHP system, to calculate net power produced. The result of the study is a demonstration that the key requirements for the emerging standard for community scale FSTUs are achievable.
+To provide this demonstration, first, we describe the BR CHP system and its modules as well as the test protocol followed. Next, we present a thermal power balance based on measurements of the system during steady-state operation to provide energy available in the thermochemical process. Last, we present measurements of electrical power generated by the ORC as well as the electrical power consumed by the BR CHP system to calculate net power produced. The result of the study is a demonstration that the key requirements for the emerging standard for community scale FSTUs are achievable.
 
 # Methods 
 
@@ -162,23 +163,23 @@ Thermal energy from the feedstock is released by the pyrolysis-combustion module
 
 The ORC module uses the thermal energy from the BR to generate electricity. A schematic of the BR CHP system operation can be seen in Figure \@ref(fig:orc-drawing).
 
-```{r orc-drawing, fig.cap="The Biogenic Refinery Combined Heat and Power system uses thermal energy produced through the thermal treatment of feedstocks to generate electrical power using an organic Rankine cycle generator."}
+```{r orc-drawing, fig.cap="The Biogenic Refinery Combined Heat and Power system uses thermal energy produced through the thermal treatment of feedstocks to generate electrical power using an organic Rankine cycle generator (black dashed box)."}
 
 knitr::include_graphics(here::here("manuscript/images/CHP_ProcessFlowDiagram.jpg"))
 
 ```
 
-The thermal energy is delivered from the BR to the ORC module using the oil working fluid. This working fluid is used to evaporate a different organic working fluid within the ORC. This evaporated fluid is used in conjunction with a scroll expander and run an electric generator. Following electrical generation, the working fluid is condensed using a water heat exchanger within the ORC, and the heated water is used for heating. The ORC used in the BR CHP system had a rated electrical generation capacity of 4 kWe with a nominal 8% generation efficiency. Because the ORC has only 8% efficiency in generating electricity, 92% of the original thermal energy remains available for heating applications following energy conversion. In the BR CHP, this energy is used to heat water which is then further heated by the BR hydronic heat exchanger module and ultimately used for the drying of incoming feedstock.
+The thermal energy is delivered from the BR to the ORC module using the oil working fluid. This working fluid is used to evaporate a different organic working fluid within the ORC. This evaporated fluid is used in conjunction with a scroll expander and runs an electric generator. Following electrical generation, the working fluid is condensed using a water heat exchanger within the ORC, and the heated water is used for heating. The ORC used in the BR CHP system had a rated electrical generation capacity of 4 kWe with a nominal 8% generation efficiency. Because the ORC has only 8% efficiency in generating electricity, 92% of the original thermal energy remains available for heating applications following energy conversion. In the BR CHP, this energy is used to heat water which is then further heated by the BR hydronic heat exchanger module and ultimately used for the drying of incoming feedstock.
 
 ## Feedstock
 
-FSTUs are intended to primarily treat fecal sludge. However, in a laboratory setting, a sufficient volume of fecal sludge for extended testing is difficult to acquire. Instead, a surrogate feedstock with a similar caloric value, or effective heat of combustion, was sought. The effective heat of combustion of dry feces varies substantially depending on location and source. A study by @goldFaecalSludgeSolid2017 found effective heats of combustion of 13.4 MJ/kg and 10.9 MJ/kg in Dakar, Senegal and Kampala, Uganda, respectively.  A study by @musprattFuelPotentialFaecal2014b found effective heats of combustion of 16.6 MJ/kg, 16.2 MJ/kg, and 19.1 MJ/kg in Dakar, Kampala, and Kumasi, respectively. A recent study by @myersThermalAnalysisPyrolysis found effective heats of combustion of 19.6 MJ/kg and 22.3 MJ/kg in samples from the India and the United States, respectively.  A meta-study by @roseCharacterizationFecesUrine2015b found the average and median for dry feces internationally are 17.2 MJ/kg and 19.1 MJ/kg. Wood pellets with an effective heat of combustion of 19.2 MJ/kg were identified as an appropriate substitute. 
+FSTUs are intended to primarily treat fecal sludge. However, in a laboratory setting, a sufficient volume of fecal sludge for extended testing is difficult to acquire. Instead, a surrogate feedstock with a similar caloric value, or effective heat of combustion, was sought. The effective heat of combustion of dry feces varies substantially depending on location and source. A study by @goldFaecalSludgeSolid2017 found effective heats of combustion of 13.4 MJ/kg and 10.9 MJ/kg in Dakar, Senegal and Kampala, Uganda, respectively.  A study by @musprattFuelPotentialFaecal2014b found effective heats of combustion of 16.6 MJ/kg, 16.2 MJ/kg, and 19.1 MJ/kg in Dakar, Kampala, and Kumasi, Ghana, respectively. A recent study by @myersThermalAnalysisPyrolysis found effective heats of combustion of 19.6 MJ/kg and 22.3 MJ/kg in samples from the India and the United States, respectively.  A meta-study by @roseCharacterizationFecesUrine2015b found the average and median for dry feces internationally are 17.2 MJ/kg and 19.1 MJ/kg. Wood pellets with an effective heat of combustion of 19.2 MJ/kg were identified as an appropriate substitute. 
 
 The typical moisture content of fecal sludge treated by operating BRs is 35% moisture on a mass basis, i.e. 35% of the final feedstock mass entering the BR consists of water and 65% of dry fecal sludge. To simulate this moisture content, wood pellets were mixed with the appropriate mass of water in a large tumbler until the water was fully absorbed. The resulting mixture had the consistency of wet sawdust and could be smoothly fed into the BR.
 
 ## Thermal Power Balance Test
 
-The thermal power balance testing was conducted on the BR with the ORC disconnected. During operation, the BR moves through several operational modes before converging on steady state. In real world operation, the ORC only generates power during the steady state. To best simulate this, the BR was brought to steady state and allowed to run for approximately three hours. 
+The thermal power balance testing was conducted on the BR with the ORC disconnected. A heat sink was connected to the oil loop to simulate the thermal energy removed from the system by the ORC. During operation, the BR moves through several operational modes before converging on steady state. In real world operation, the ORC only generates power during the steady state. To best simulate this, the BR was brought to steady state and allowed to run for approximately three hours.
 
 Thermal energy enters the BR through the supplied feedstock which is pyrolyzed and then combusted, releasing most of its energy as 
 
@@ -188,9 +189,9 @@ During steady state, the energy entering the BR through the feedstock is equal t
 
 $$Q_{in} = Q_{biochar} + Q_{OHX} + Q_{HHX} + Q_{loss}$$
 
-where  $Q_{biochar}$ is the thermal power leaving through extracted biochar, $Q_{OHX}$ is the thermal power extracted by the oil working fluid heat exchanger, $Q_{HHX}$ is the thermal power extracted by the hydronic heat exchanger, and $Q_{loss}$ is the remaining thermal power lost to either radiant and convective heat transfer out of the exterior or jacket of the BR or through the hot gases escaping the stack.
+where  $Q_{biochar}$ is the thermal power leaving through extracted biochar, $Q_{OHX}$ is the thermal power extracted transferred to the working fluid by the oil working fluid heat exchanger, $Q_{HHX}$ is the thermal power transfered to water by the hydronic heat exchanger, and $Q_{loss}$ is the remaining thermal power lost to either radiant and convective heat transfer out of the exterior or jacket of the BR or through the hot gases escaping the stack.
 
-The thermal energy remaining in the biochar is energy that was not extracted through complete combustion of the feedstock. The average thermal power lost to the biochar is determined from the biochar production rate, $\dot{m}_{biochar}$, and the effective heat of combustion of the biochar, $ \Delta H_{c,biochar}$, as
+The thermal energy remaining in the biochar is energy that was not extracted through complete combustion of the feedstock. The average thermal power lost to the biochar is determined from the biochar production rate, $\dot{m}_{biochar}$, and the effective heat of combustion of the biochar, $\Delta H_{c,biochar}$, as
 
 $$Q_{biochar} = \Delta H_{c,biochar}  \dot{m}_{biochar}$$
 
@@ -207,9 +208,9 @@ where $\dot{V}_{oil}$ is the volumetric flow rate of oil, $\rho_{oil}$ is the de
 
 duratherm_oil %>% 
   rename(
-    `Temperature [°C]` = temperature_c,
+    `Temperature (°C)` = temperature_c,
     `Density (kg/m3)` = density_kg_m_3_1,
-    `Heat Capacity (kJ/kg-K)` = heat_capacity_k_j_kg_k_1
+    `Heat Capacity (kJ/kg*-K)` = heat_capacity_k_j_kg_k_1
   ) %>% 
   knitr::kable(caption = "Thermal properties of Duratherm FG oil working fluid") 
 
@@ -220,7 +221,7 @@ The majority of this thermal power is transported to the ORC where it is used in
 
 $$Q_{PHL} = (T_{out} - T_{amb})/ (R_{pipe} + R_{insul})$$
 
-where $T_{amb})$ is the ambient air temperature, $R_pipe$ is the effective thermal resistance for the pipe leading from the oil working fluid heat exchanger to the ORC and  $R_insul$ is the effective thermal resistance of the insulation wrapping the pipe. The effective thermal resistance for a pipe or hollow cylinder is determined as
+where $T_{amb})$ is the ambient air temperature, $R_{pipe}$ is the effective thermal resistance for the pipe leading from the oil working fluid heat exchanger to the ORC and  $R_{insul}$ is the effective thermal resistance of the insulation wrapping the pipe. The effective thermal resistance for a pipe or hollow cylinder is determined as
 
 $$R = ln(r_o/r_i)/(2*\pi*L*k)$$
 
@@ -230,11 +231,12 @@ Thermal power is extracted by the hydronic heat exchanger is given as
 
 $$Q_{HHX} = \dot{V}_{w} \rho_{w} c_{p,w} (T_{w,out} - T_{w,in})$$
 
-where $\dot{V}_{w}$ is the volumetric flow rate of water, $\rho_{w}$ is the density of water, $c_{p,w}$ is the specific heat of the water, and $T_{w,out}$ and  $T_{w,in}$ are the temperatures of the water entering and leaving the hydronic heat exchanger. Most of the thermal power from the hydronic heat exchanger is delivered to the dryer but some thermal power is lost through pipe losses which can be calculated by equations **XX** and **YY**.
+where $\dot{V}_{w}$ is the volumetric flow rate of water, $\rho_{w}$ is the density of water, $c_{p,w}$ is the specific heat of the water, and $T_{w,out}$ and  $T_{w,in}$ are the temperatures of the water entering and leaving the hydronic heat exchanger.
 
-The remaining thermal power leaves the system through jacket and stack losses. The total of the jacket and stack losses are calculated using **equation 2** when the other elements of the thermal power balance are known. Jacket losses consist of thermal power convected or radiated away from the exterior of the BR. Stack losses include all thermal power in the hot exhaust gases leaving the system. Jacket temperatures were measured with an infrared thermometer at 12 points (4 on each section) every 30 minutes for the duration of steady state operation. The average temperatures was used to calculate total radiative and convective heat transfer from each portion of the BR. The exterior of the BR is not a uniform temperature, adding significant uncertainty to calculations of heat transfer from the surface. Further, precise pressure and flow measurements were not made, limiting the ability to explicitly calculate energy flow in the escaping hot gases. Instead, these losses were lumped together.
+The remaining thermal power leaves the system through jacket and stack losses. The total of the jacket and stack losses are calculated using equation 2 when the other elements of the thermal power balance are known. Jacket losses consist of thermal power convected or radiated away from the exterior of the BR. Stack losses include all thermal power in the hot exhaust gases leaving the system. Jacket temperatures were measured with an infrared thermometer at 12 points (4 on each section) every 30 minutes for the duration of steady state operation. The average temperatures were used to calculate total radiative and convective heat transfer from each portion of the BR. The exterior of the BR is not a uniform temperature, adding significant uncertainty to calculations of heat transfer from the surface. Further, precise pressure and flow measurements were not made, limiting the ability to explicitly calculate energy flow in the escaping hot gases. Instead, these losses were lumped together.
 
-During steady state operation, the various temperatures mentioned above (water, and oil) were recorded using thermocouples and thermistors. Air temperatures of the hot gases within the BR were measured with thermocouples. The flow rates of water and oil were measured using ultrasonic flow meters. These sensor were integrated with the BR CHP controller with the results recorded in real time using the Biomass Controls kelvºn data plotter. Measurements were time averaged across steady state operation. Additional measurements, such as feedstock input rate, biochar production rate, and jacket temperatures were measured periodically throughout the test.
+During steady state operation, the various temperatures mentioned above (water, and oil) were recorded using thermocouples and thermistors. Air temperatures of the hot gases within the BR were measured with thermocouples. The flow rate oil was measured using an ultrasonic flow meter. The flow rate of water was measured using a hot flow meter. These sensors were integrated with the BR CHP controller with the results recorded in real time using the Biomass Controls kelv°n data plotter. Measurements were time-averaged across steady state operation. Additional measurements, such as feedstock input rate, biochar production rate, and jacket temperatures were measured periodically throughout the test.
+
 
 ## Data Management
 
@@ -246,7 +248,7 @@ cites <- grateful::get_citations(pkgs, out.dir = here::here("manuscript/"))
 
 ```
 
-Collected data is stored in a standard relational cloud database that provides a flexible and dynamic data management platform [@HIC2018:Remote_Sensing_Mobile_Applications]. Open source data science tools are used for data analysis to increase reproducibility, collaboration and communication [@lowndesOurPathBetter2017]. R Statistical Software and the RStudio Integrated Development Environment are used for data analysis [@base; @rstudioteamRStudioIntegratedDevelopment2018]. The following open source R packages have been used from accessing data to producing the final manuscript: bookdown, DBI, dbplyr, here, hms, lubridate, purrr, RMySQL, rstudioapi, snakecase, stringr, tidyverse [@DBI; @dbplyr; @here; @hms; @lubridate; @purrr; @RMySQL; @rstudioapi; @snakecase; @stringr; @tidyverse; @xieBookdownAuthoringBooks2016]. 
+Collected data is stored in a standard relational cloud database that provides a flexible and dynamic data management platform [@HIC2018:Remote_Sensing_Mobile_Applications]. Open source data science tools were used for data analysis to increase reproducibility, collaboration and communication [@lowndesOurPathBetter2017]. R Statistical Software and the RStudio Integrated Development Environment were used for data analysis [@base; @rstudioteamRStudioIntegratedDevelopment2018]. The following open source R packages were used to perform data evaluation from initially accessing data to producing the final manuscript: bookdown, DBI, dbplyr, here, hms, lubridate, purrr, RMySQL, rstudioapi, snakecase, stringr, tidyverse [@DBI; @dbplyr; @here; @hms; @lubridate; @purrr; @RMySQL; @rstudioapi; @snakecase; @stringr; @tidyverse; @xieBookdownAuthoringBooks2016]. 
 
 # Results and Analysis
 
@@ -254,7 +256,7 @@ Collected data is stored in a standard relational cloud database that provides a
 
 A thermal power balance in the Biogenic Refinery was constructed using the aforementioned measured system temperatures and flow rates. This thermal power balance can be seen in Figure \@ref(fig:fig-energy-balance). Specific details on the thermal power calculations for each section follows.
 
-```{r fig-energy-balance, fig.cap="The energy flow of the Biogenic Refinery during steady state operation. Thermal power, in the form of feedstock, enters the system and is released by pyrolysis and combustion. Some thermal power is extracted through biochar, some through the oil working fluid heat exchanger, and some through the hydronic heat exchanger. The remaining energy is lost either through oil loop losses, water loop losses, radiant and convective heat transfer out of the jacket and through the hot gases escaping the stack"}
+```{r fig-energy-balance, fig.cap="A sankey diagram ofvenergy flow of the Biogenic Refinery Combined Heat and Power unit during steady state operation."}
 
 ## Sankey Diagram that can be run as an individual chunk without dependency on other objects in this document.
 
@@ -336,10 +338,10 @@ sankey_combined3 <- sankeyNetwork(
   Value = "value", 
   NodeID = "name",
   units = "kWth", 
-  fontSize = 22, 
+  fontSize = 18, 
   nodeWidth = 20, 
   fontFamily = "Arial",
-  height = 900,
+  height = 1100,
   width = 1500,
   sinksRight = FALSE)
 
@@ -386,7 +388,7 @@ q_in <- q_fuel - q_evap
 
 ```
 
-The surrogate feedstock described above were fed steadily into the BR. The fuel feed rate was measured to average `r round(m_fuel_kg_h * 0.65, digits = 1)` kg/hr on a dry basis. The calorific value of the feedstock was `r calorific_value_fuel` MJ/kg on a dry basis, resulting in a total heat input of `r round(q_fuel, digit = 1)` kWth. Of this, `r round(q_evap, digits = 1)` kWth was necessary to evaporate the water contained in the fuel prior to combustion. The remaining `r round(q_in, digits = 1)` kWth was released into the system.
+The surrogate feedstock described above was fed steadily into the BR. The fuel feed rate was measured to average `r round(m_fuel_kg_h * 0.65, digits = 1)` kg/hr on a dry basis. The calorific value of the feedstock was `r calorific_value_fuel` MJ/kg on a dry basis, resulting in a total heat input of `r round(q_fuel, digit = 1)` kWth. Of this, `r round(q_evap, digits = 1)` kWth were necessary to evaporate the water contained in the fuel prior to combustion. The remaining `r round(q_in, digits = 1)` kWth were released into the system.
 
 ### Biochar output
 
@@ -467,7 +469,7 @@ heat_loss_oil_pipe <- (oil_out_temp$mean_oil_out_temp - ambient_temp$mean_ambien
 
 ```
 
-Using known thermal properties of the chosen Duratherm oil, it can be calculated that `r round(power_delivery_orc, digits = 1)` kWth of power was delivered from the system. The thermal energy in the oil loop was continuously transferred to a heat exchanger as part of the ORC system, where a portion of this thermal energy was subsequently converted into electricity. An additional `r round(heat_loss_oil_pipe, digits = 1)` kWth was extracted by the oil heat exchanger, but was dissipated as “loop losses”, or thermal energy losses through the oil pipe assembly into the ambient air.  
+Using known thermal properties of the chosen Duratherm oil, it can be calculated that `r round(power_delivery_orc, digits = 1)` kWth of power were delivered from the system. The thermal energy in the oil loop was continuously transferred to a heat exchanger as part of the ORC system, where a portion of this thermal energy was subsequently converted into electricity. An additional `r round(heat_loss_oil_pipe, digits = 1)` kWth were extracted by the oil heat exchanger, but were dissipated as “loop losses”, or thermal energy losses through the oil pipe assembly into the ambient air.  
 
 ### Hydronic heat exchanger output
 
@@ -542,7 +544,7 @@ heat_loss_water_pipe <- (water_out_temp$mean_water_out_temp - ambient_temp$mean_
 
 ```
 
-Using known thermal properties of water, it can be calculated that `r round(heat_output_water, digits = 1)` kWth was delivered by the hydronic heat exchanger. This thermal energy was continuously dissipated through a radiator to simulate a connected, upstream fuel drying system. An additional `r round(heat_loss_water_pipe, digits = 1)` kWth was extracted by the hydronic heat exchanger, but was dissipated as “loop losses”, or thermal energy losses through the water pipe assembly into the ambient air. 
+Using known thermal properties of water, it can be calculated that `r round(heat_output_water, digits = 1)` kWth were delivered by the hydronic heat exchanger. This thermal energy was continuously dissipated through a radiator to simulate a connected, upstream fuel drying system. An additional `r round(heat_loss_water_pipe, digits = 1)` kWth were extracted by the hydronic heat exchanger, but were dissipated as “loop losses”, or thermal energy losses through the water pipe assembly into the ambient air. 
 
 ### Jacket and stack losses
 
@@ -600,7 +602,7 @@ stack_heat_loss <- q_in - ## fuel input
 
 ```
 
-Jacket and stack heat losses compose the remainder of the unaccounted for power leaving the system. A total of `r round(jacket_heat_loss_total, digits = 1)` kWth account for jacket heat losses and the remaining `r round(stack_heat_loss, digits = 1)` kWth are estimated to be stack heat losses. Section 1, as shown in Figure 1, had a measured average surface temperature of `r round(filter(surface_temp, section == 1)$mean_temperature, digits = 1)` °C. The result is an estimated jacket heat loss of `r round(filter(jacket_heat_loss_sum, section == 1)$q_loss_total, digits = 1)` kWth, of which `r round(filter(jacket_heat_loss_sum, section == 1)$sum_q_loss_conv, digits = 1)` were due to convection and `r round(filter(jacket_heat_loss_sum, section == 1)$sum_q_loss_radi, digits = 1)` due to radiation. Section 2 had an average surface temperature of `r round(filter(surface_temp, section == 2)$mean_temperature, digits = 1)` °C. The result is an estimated jacket heat loss of `r round(filter(jacket_heat_loss_sum, section == 2)$q_loss_total, digits = 1)` kWth, of which `r round(filter(jacket_heat_loss_sum, section == 2)$sum_q_loss_conv, digits = 1)` were due to convection and `r round(filter(jacket_heat_loss_sum, section == 2)$sum_q_loss_radi, digits = 1)` due to radiation. Section 3 had an average surface temperature of `r round(filter(surface_temp, section == 3)$mean_temperature, digits = 1)` °C. The result is an estimated jacket heat loss of `r round(filter(jacket_heat_loss_sum, section == 1)$q_loss_total, digits = 1)` kWth, of which `r round(filter(jacket_heat_loss_sum, section == 3)$sum_q_loss_conv, digits = 1)` were due to convection and `r round( filter(jacket_heat_loss_sum, section == 3)$sum_q_loss_radi, digits = 1)` due to radiation.
+Jacket and stack heat losses compose the remainder of the unaccounted for power leaving the system. A total of `r round(jacket_heat_loss_total, digits = 1)` kWth account for jacket heat losses and the remaining `r round(stack_heat_loss, digits = 1)` kWth are estimated to be stack heat losses. The pyrolysis-combustion module had a measured average surface temperature of `r round(filter(surface_temp, section == 1)$mean_temperature, digits = 1)` °C. The result is an estimated jacket heat loss of `r round(filter(jacket_heat_loss_sum, section == 1)$q_loss_total, digits = 1)` kWth, of which `r round(filter(jacket_heat_loss_sum, section == 1)$sum_q_loss_conv, digits = 1)` kWth were due to convection and `r round(filter(jacket_heat_loss_sum, section == 1)$sum_q_loss_radi, digits = 1)` kWth due to radiation. The oil working fluid heat exchanger module had an average surface temperature of `r round(filter(surface_temp, section == 2)$mean_temperature, digits = 1)` °C. The result is an estimated jacket heat loss of `r round(filter(jacket_heat_loss_sum, section == 2)$q_loss_total, digits = 1)` kWth, of which `r round(filter(jacket_heat_loss_sum, section == 2)$sum_q_loss_conv, digits = 1)` kWth were due to convection and `r round(filter(jacket_heat_loss_sum, section == 2)$sum_q_loss_radi, digits = 1)` kWth due to radiation. The hydronic heat exchanger had an average surface temperature of `r round(filter(surface_temp, section == 3)$mean_temperature, digits = 1)` °C. The result is an estimated jacket heat loss of `r round(filter(jacket_heat_loss_sum, section == 1)$q_loss_total, digits = 1)` kWth, of which `r round(filter(jacket_heat_loss_sum, section == 3)$sum_q_loss_conv, digits = 1)` kWth were due to convection and `r round( filter(jacket_heat_loss_sum, section == 3)$sum_q_loss_radi, digits = 1)` due to radiation kWth.
 
 
 ```{r}
@@ -640,7 +642,7 @@ stack_temp <- data_tidy %>%
 
 ```
 
-The ambient air temperature was `r round(ambient_temp$mean_ambient_temp, digits =1 )` ± `r round(ambient_temp$sd_ambient_temp, digits = 1)` °C. The average temperature leaving section 1, following the pyrolysis pot, was `r round(pyrolysis_temp$mean_pyrolysis_temp, digits = 1)` ± `r round(pyrolysis_temp$sd_pyrolysis_temp, digits = 1)` °C. This temperature exceeds the temperature necessary for pathogen free outputs, exceeding the IWA 28:2018 pathogen threshold requirements. The average temperature leaving section 2, following the oil heat exchanger, `r round(pre_hhx_temp$mean_pre_hhx_temp, digits = 1)` ± `r round(pre_hhx_temp$sd_pre_hhx_temp, digits = 1)` °C. The average temperature leaving section 3, or the entire BR, was `r round(stack_temp$mean_stack_temp, digits = 1)` ± `r round(stack_temp$mean_stack_temp, digits = 1)` °C.
+The ambient air temperature was `r round(ambient_temp$mean_ambient_temp, digits =1 )` ± `r round(ambient_temp$sd_ambient_temp, digits = 1)` °C. The average temperature leaving section 1, following the pyrolysis pot, was `r round(pyrolysis_temp$mean_pyrolysis_temp, digits = 1)` ± `r round(pyrolysis_temp$sd_pyrolysis_temp, digits = 1)` °C. This temperature exceeds IWA 28:2018 temperature threshold requirement for pathogen free outputs. The average temperature leaving section 2, following the oil heat exchanger was `r round(pre_hhx_temp$mean_pre_hhx_temp, digits = 1)` ± `r round(pre_hhx_temp$sd_pre_hhx_temp, digits = 1)` °C. The average temperature leaving section 3, or the entire BR, was `r round(stack_temp$mean_stack_temp, digits = 1)` ± `r round(stack_temp$sd_stack_temp, digits = 1)` °C.
 
 ## 
 
@@ -680,13 +682,17 @@ Table \@ref(tab:t-power-balance) shows the complete thermal power balance. Out o
 ```{r t-power-balance}
 
 power_balance_final %>% 
+  rename(
+    Parameter = parameter,
+    `Thermal Power (MJ/kg)` = value
+         ) %>% 
   knitr::kable(digits = 1, caption = "Final power balance.") 
 
 ```
 
 The thermal power balance is visualized as a Sankey Diagram in Figure \@ref(fig:sankey-power-balance).
 
-```{r sankey-power-balance, include=TRUE, fig.cap="Final thermal power balance."}
+```{r sankey-power-balance, include=TRUE, fig.cap="Thermal power balance of the Biogenic Refinery."}
 
 nodes_chp2 <- tibble(
     name = c(
@@ -757,10 +763,10 @@ sankey3 <- sankeyNetwork(
   Value = "value", 
   NodeID = "name",
   units = "kWth", 
-  fontSize = 22, 
+  fontSize = 19, 
   nodeWidth = 20, 
   fontFamily = "Arial",
-  height = 900,
+  height = 1100,
   width = 1200)
 
 
@@ -785,65 +791,23 @@ power_draw <- 1000
 
 ```
 
-During steady state operation of the Biogenic Refinery, the Organic Rankine Cycle generator was engaged and allowed to produce power. The ORC received approximately `r round(power_delivery_orc, digits = 1)` kWth of power from the oil working fluid heat exchanger. This was converted into approximately `r round(electrical_power_generated / 1000, digits = 1)` kWe of electrical power, an efficiency of `r round(electrical_power_generated / 1000 / power_delivery_orc * 100, digits = 1)` %, slightly exceeding the nominal 8% efficiency of the ORC. For the purposes of this test, the electrical power was released through a heating element and not used to power the system or charge a battery.
+During steady state operation of the Biogenic Refinery, the ORC generator was engaged and allowed to produce power. The ORC received approximately `r round(power_delivery_orc, digits = 1)` kWth of power from the oil working fluid heat exchanger. This was converted into approximately `r round(electrical_power_generated / 1000, digits = 1)` kWe of electrical power, an efficiency of `r round(electrical_power_generated / 1000 / power_delivery_orc * 100, digits = 1)` %, slightly exceeding the nominal 8% efficiency of the ORC. For the purposes of this test, the electrical power was released through a heating element and not used to power the system or charge a battery.
 
-To measure parasitic load, the BR CHP system was connected to a WattNode Pulse energy and power meter. The meter measures energy using a current transformer clamped around the mains power cable for the BR CHP system connected to the wall-outlet. Although thermal energy is provided by the BR for drying incoming feedstock, the dryer itself is not considered a part of the BR CHP system. The average power draw from the BR CHP system, during steady state, was `r round(power_draw / 1000, digits = 1)` kWe. 
+To measure parasitic load, the BR CHP system was connected to a WattNode Pulse energy and power meter. The meter measures energy using a current transformer clamped around the mains power cable for the BR CHP system connected to the wall-outlet. Although thermal energy is provided by the BR for drying incoming feedstock, the dryer itself is not part of the BR CHP system as defined in the ISO/PC 318 standard. The average power draw from the BR CHP system, during steady state, was `r round(power_draw / 1000, digits = 1)` kWe. 
 
-Figure **XYZ** shows the power consumed by the CHP system compared to the power generated by the ORC during steady-state operation. The BR CHP system thus produces `r round((electrical_power_generated - power_draw) / 1000, digits = 1)` kWe net power as the calculated difference between these terms. 
+Figure \@ref(fig:electrical-power) shows the power consumed by the CHP system compared to the power generated by the ORC during steady-state operation. The BR CHP system produces `r round((electrical_power_generated - power_draw) / 1000, digits = 1)` kWe net power as the calculated difference between these terms. 
 
-```{r}
+```{r electrical-power, fig.cap="Electrical power balance of the Organic Rankine Cycle."}
 
-nodes_orc <- tibble(
-    name = c(
-    "Organic Rankine Cycle (25.0 kW)", # 0
-    "Electrical Energy Generated (2.2 kW)", # 1
-    "Thermal Energy Lost (22.8 kW)", # 2
-    "Eletrical Energy Consumed (1.0 kW)", # 3
-    "Net Power Produced (1.2 kW)" # 4
-    #"Example Losses A (7.8 kW)", # 5
-    #"Example Losses B (15.0 kW)" # 6
-    ),
-)
-
-links_orc <- tibble(
-  source = c(0, 0, 1, 1), #, 2, 2),
-  target = c(2, 1, 3, 4),# , 5, 6),
-  value = 
-    c(filter(power, parameter == "Oil Heat Exchanger")$value - 2.2,
-      2.2,
-      1.0,
-      2.2 - 1.0
-      #7.8,
-      #15.0
-    )
-)
-
-power_orc <- list(nodes = nodes_orc, links = links_orc)
-
-sankey_orc <- sankeyNetwork(
-  Links = power_orc$links, 
-  Nodes = power_orc$nodes, 
-  Source = "source",
-  Target = "target",
-  Value = "value", 
-  NodeID = "name",
-  units = "kWth", 
-  fontSize = 22, 
-  nodeWidth = 20, 
-  fontFamily = "Arial",
-  height = 400,
-  width = 1100, sinksRight = FALSE)
-
-sankey_orc
-
+knitr::include_graphics(here::here("images/Power with ORC.jpg.png"))
 
 ```
 
 # Conclusions
 
-The present study demonstrated that the the BR CHP system is capable of simultaneously meeting two key criteria of the emerging standard for community scale FSTU,  ISO/PC318. First, depathoginization was fast and consistent.The average treatment temperature of the BR ensures pathogen free outputs exceeding the CFR 40 Part 503 and emerging standard ISO/PC318 pathogen threshold requirements. Further, the energy contained in the fecal sludge can be effectively utilized through thermal oxidation, freeing it for use to meet the electrical needs of the FSTU. The BR CHP system produced an electrical energy surplus of 1.2 kW.
+The present study demonstrated that the the BR CHP system is capable of simultaneously meeting two key criteria of the emerging standard for community scale FSTU, ISO/PC318. First, depathoginization was fast and consistent. The average treatment temperature of the BR ensures pathogen free outputs exceeding the CFR 40 Part 503 and emerging standard ISO/PC318 pathogen threshold requirements, though this will have to be demonstrated through the compliance testing required by the ISO/PC 318 standard [@usepaPlainEnglishGuide2018]. Further, the energy contained in the fecal sludge can be effectively utilized through thermal oxidation, freeing it for use to meet the electrical needs of the FSTU. The BR CHP system produced an electrical energy surplus of 1.2 kW.
 
-This demonstration does not fulfil all of the requirements of the emerging standard. In addition to this energy positivity, a true energy independent system needs suitable energy storage and management techniques. Further, system safety, reliability, and usability must all be demonstrated. However, despite these shortcomings, the present work shows promise for the near term solution to the global needs to community scale waste management.
+This demonstration does not fulfil all of the requirements of the emerging standard. In addition to this energy positivity, a true energy independent system needs suitable energy storage and management techniques. Further, system safety, reliability, and usability, and pathogen output levels must all be verified through official certification testing, upon completion of the emerging standard. While all of these will be the subject of future efforts, the present work shows promise for a near term solution to the global need for community scale waste management.
 
 # Data availability
 
@@ -853,15 +817,12 @@ Repository: Dataset 1. Operational raw data of FSTU, https://zenodo.org/record/2
 
 Data and source code are stored on GitHub and archived on Zenodo [@lars_schoebitz_2019_2562836]. Metadata for all data tables required to reproduce this article are described in https://github.com/larnsce/chp-article/blob/master/data/chp_article_data_tables_metadata.md.
 
-# Grant information
+# Grant Information
 
-Taylor to add.
-
-# Acknowledgements
-
-Taylor to add.
+This work is, in whole, supported by a grant, OPP1173370, from the Bill & Melinda Gates Foundation through Duke University's Center for WaSH-AID. All opinions, findings, and conclusions or recommendations expressed in this work are those of the authors and do not necessarily reflect the views of the Foundation, Duke, or the Center.
 
 # References
+
 
 
 
