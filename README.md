@@ -1,8 +1,8 @@
 # README
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2562836.svg)](https://doi.org/10.5281/zenodo.2562836)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2566502.svg)](https://doi.org/10.5281/zenodo.2566502)
 
-This repository stores all files required to reproduce a Research Article submitted to [Gates Open Research Platform](https://gatesopenresearch.org/). The article was written in [R Markdown](https://rmarkdown.rstudio.com/) and can be fully reproduced by cloning this repository and installing the required software listed under R Session info. The article was submitted as a DOCX file, as required be the research platform. The [final DOCX file]() underwent minor manual modifications, which are not reproducable. 
+This repository stores all files required to reproduce a Research Article submitted to [Gates Open Research Platform](https://gatesopenresearch.org/). The article was written in [R Markdown](https://rmarkdown.rstudio.com/) and can be fully reproduced by cloning this repository and installing the required software listed under R Session info. The article was submitted as a DOCX file, as required be the research platform. The [final DOCX file](https://github.com/larnsce/chp-article/blob/master/manuscript/Research_Article_Biomass_Controls_Thermal_Treatment.docx) underwent minor manual modifications, which are not reproducible. 
 
 ## Data
 
